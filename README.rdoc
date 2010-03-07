@@ -1,4 +1,4 @@
-= rb_webcam
+= webcam
 Crossplatform video capture library for Ruby
 (Powered by OpenCV)
 
@@ -10,7 +10,7 @@ Windows, Mac OS X, Linux, etc...
 OpenCV >= 2.0
 
 == Install
-gem install rb_webcam
+gem install webcam
 
 == LICENSE
 The MIT License
