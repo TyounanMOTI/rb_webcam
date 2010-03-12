@@ -8,8 +8,6 @@ describe Webcam do
 
   context "when grabs a frame" do
     subject { Webcam.new.grab }
-    it "should succeed" do
-      should == 1
-    end
+    it { should == 1 }
   end
 end
