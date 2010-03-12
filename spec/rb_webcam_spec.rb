@@ -15,4 +15,13 @@ describe Webcam do
     subject { Webcam.new.close }
     it { should be_nil }
   end
+
+  context "when try to grab closed Webcam" do
+    before do
+      @webcam = Webcam.new
+      @webcam.close
+    end
+
+    it { lambda{ @webcam.grab }.should raise_error(RuntimeError, "Camera has'nt be initialized") }
+  end
 end

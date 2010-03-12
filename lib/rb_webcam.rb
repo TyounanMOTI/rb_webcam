@@ -22,6 +22,7 @@ class Webcam
   end
 
   def grab
+    raise "Camera has'nt be initialized" if @capture_handler.nil?
     Highgui.cvGrabFrame(@capture_handler)
   end
 
