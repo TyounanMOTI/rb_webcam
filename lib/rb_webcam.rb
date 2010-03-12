@@ -24,5 +24,9 @@ class Webcam
   def grab
     Highgui.cvGrabFrame(@capture_handler)
   end
+
+  def close
+    @capture_handler = nil
+  end
 end
 

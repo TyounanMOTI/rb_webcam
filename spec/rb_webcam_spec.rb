@@ -10,4 +10,9 @@ describe Webcam do
     subject { Webcam.new.grab }
     it { should == 1 }
   end
+
+  context "when close a camera" do
+    subject { Webcam.new.close }
+    it { should be_nil }
+  end
 end
