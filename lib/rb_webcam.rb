@@ -18,7 +18,7 @@ class Webcam
   end
 
   def grab
-    return Highgui::cvGrabFrame(@capture_handler)
+    Highgui::cvGrabFrame(@capture_handler)
   end
 end
 
