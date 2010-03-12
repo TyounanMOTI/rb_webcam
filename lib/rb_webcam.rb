@@ -8,8 +8,9 @@ module Highgui
   class CvCapture < NiceFFI::OpaqueStruct
   end
 
-  attach_function :cvCreateCameraCapture, [:int], CvCapture.typed_pointer
+  attach_function :cvCreateCameraCapture, [:int], :pointer
   attach_function :cvGrabFrame, [:pointer], :int
+  attach_function :cvReleaseCapture, [:pointer], :void
 end
 
 class Webcam
@@ -27,7 +28,10 @@ class Webcam
   end
 
   def close
+    Highgui::cvReleaseCapture(FFI::MemoryPointer.new(:pointer).write_pointer(@capture_handler))
     @capture_handler = nil
   end
+
+  attr_reader :capture_handler
 end
 
