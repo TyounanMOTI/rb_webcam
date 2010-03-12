@@ -2,8 +2,16 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe Webcam do
   context "when given camera_id is 0" do
-    subject { Webcam.new(0) }
-    it { should_not be_nil }
+    before do
+      @c_webcam = Webcam.new(0)
+    end
+
+    it { @c_webcam.should_not be_nil }
+    it { @c_webcam.capture_handler.should be_instance_of(FFI::Pointer) }
+
+    after do
+      @c_webcam.close
+    end
   end
 
   context "when grabs a frame" do
