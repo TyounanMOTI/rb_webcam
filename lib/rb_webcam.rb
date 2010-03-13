@@ -8,9 +8,13 @@ module Highgui
   class CvCapture < NiceFFI::OpaqueStruct
   end
 
+  class IplImage < NiceFFI::OpaqueStruct
+  end
+
   attach_function :cvCreateCameraCapture, [:int], :pointer
   attach_function :cvGrabFrame, [:pointer], :int
   attach_function :cvReleaseCapture, [:pointer], :void
+  attach_function :cvQueryFrame, [:pointer], :pointer
 end
 
 class Webcam
@@ -22,9 +26,15 @@ class Webcam
     @capture_handler = Highgui::cvCreateCameraCapture(camera_id)
   end
 
+  def self.open(camera_id=0)
+    webcam = Webcam.new(camera_id)
+    yield webcam
+    webcam.close
+  end
+
   def grab
     raise "Camera has'nt be initialized" if @capture_handler.nil?
-    Highgui.cvGrabFrame(@capture_handler)
+    Highgui.cvQueryFrame(@capture_handler)
   end
 
   def close
