@@ -12,7 +12,6 @@ module Highgui
   end
 
   attach_function :cvCreateCameraCapture, [:int], :pointer
-  attach_function :cvGrabFrame, [:pointer], :int
   attach_function :cvReleaseCapture, [:pointer], :void
   attach_function :cvQueryFrame, [:pointer], :pointer
 end
