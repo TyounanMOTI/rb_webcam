@@ -18,13 +18,13 @@ end
 
 class Webcam
   # Call 'open(camera_id)'.
-  def initialize(camera_id=0)
-    open(camera_id)
+  def initialize(camera_id=0, size = {width: -1, height: -1})
+    open(camera_id, size)
   end
 
   # Open camera with 'camera_id'. (default = 0)
   # If specified '0', camera will be auto-detected.
-  def open(camera_id=0)
+  def open(camera_id = 0, size = {width: -1, height: -1})
     @capture_handler = Highgui::cvCreateCameraCapture(camera_id)
   end
 
@@ -32,7 +32,7 @@ class Webcam
   # This will open then close at start and end of block.
   # ex.
   # Webcam.open { |camera| @image = camera.grab }
-  def self.open(camera_id=0)
+  def self.open(camera_id=0, size = {width: -1, height: -1})
     webcam = Webcam.new(camera_id)
     yield webcam
     webcam.close
