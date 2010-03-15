@@ -5,11 +5,7 @@ describe Webcam do
     it { lambda{ @c_webcam.grab }.should raise_error(RuntimeError, "Camera has'nt be initialized") }
   end
 
-  context "when given camera_id is 0" do
-    before(:all) do
-     @c_webcam = Webcam.new(0)
-    end
-
+  share_examples_for "Webcam which lives a full life" do
     it { @c_webcam.should_not be_nil }
     it { @c_webcam.capture_handler.should be_instance_of(FFI::Pointer) }
     it { @c_webcam.grab.should be_instance_of(FFI::Pointer) }
@@ -17,16 +13,20 @@ describe Webcam do
     it_should_behave_like "Webcam which closed"
   end
 
+  context "when given camera_id is 0" do
+    before(:all) do
+     @c_webcam = Webcam.new(0)
+    end
+
+    it_should_behave_like "Webcam which lives a full life"
+  end
+
   context "when size, camera_id is given" do
     before(:all) do
       @c_webcam = Webcam.new(0, {width: 800, height: 600})
     end
 
-    it { @c_webcam.should_not be_nil }
-    it { @c_webcam.capture_handler.should be_instance_of(FFI::Pointer) }
-    it { @c_webcam.grab.should be_instance_of(FFI::Pointer) }
-    it { @c_webcam.close.should be_nil }
-    it_should_behave_like "Webcam which closed"
+    it_should_behave_like "Webcam which lives a full life"
   end
 
   context "when grab a frame using method with block" do

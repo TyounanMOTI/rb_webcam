@@ -20,3 +20,4 @@ pkg
 
 ## PROJECT::SPECIFIC
 /spec/rb_webcam_spec_flymake.rb
+/spec/rb_webcam_spec_flymake_flymake.rb
