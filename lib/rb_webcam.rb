@@ -11,9 +11,31 @@ module Highgui
   class IplImage < NiceFFI::OpaqueStruct
   end
 
+  enum :property, [ :position_msec, 0,
+                    :position_frames,
+                    :position_avi_ratio,
+                    :frame_width,
+                    :frame_height,
+                    :fps,
+                    :fourcc,
+                    :frame_count,
+                    :format,
+                    :mode,
+                    :brightness,
+                    :contrast,
+                    :saturation,
+                    :hue,
+                    :gain,
+                    :exposure,
+                    :convert_rgb,
+                    :white_balance,
+                    :rectification ]
+
   attach_function :cvCreateCameraCapture, [:int], :pointer
   attach_function :cvReleaseCapture, [:pointer], :void
   attach_function :cvQueryFrame, [:pointer], :pointer
+  attach_function :cvGetCaptureProperty, [:pointer, :property], :double
+  attach_function :cvSetCaptureProperty, [:pointer, :property, :double], :int
 end
 
 class Webcam
@@ -25,8 +47,10 @@ class Webcam
   # Open camera with 'camera_id'. (default = 0)
   # If specified '0', camera will be auto-detected.
   def open(camera_id = 0, size = {width: -1, height: -1})
-    @size = size
     @capture_handler = Highgui::cvCreateCameraCapture(camera_id)
+    @size = size
+
+    return @capture_handler
   end
 
   # Open camera with 'method with block' sentence.
@@ -34,7 +58,7 @@ class Webcam
   # ex.
   # Webcam.open { |camera| @image = camera.grab }
   def self.open(camera_id=0, size = {width: -1, height: -1})
-    webcam = Webcam.new(camera_id)
+    webcam = Webcam.new(camera_id, size)
     yield webcam
     webcam.close
   end
