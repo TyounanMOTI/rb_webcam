@@ -23,11 +23,12 @@ describe Webcam do
 
   context "when size, camera_id is given" do
     before(:all) do
-      @c_webcam = Webcam.new(0, {width: 800, height: 600})
+      @size =  {width: 800, height: 600}
+      @c_webcam = Webcam.new(0, @size)
     end
 
     it "should have specified size" do
-      @c_webcam.size.should == {width: 800, height: 600}
+      @c_webcam.size.should == @size
     end
 
     it_should_behave_like "Webcam which lives a full life"
