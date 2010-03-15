@@ -25,6 +25,7 @@ class Webcam
   # Open camera with 'camera_id'. (default = 0)
   # If specified '0', camera will be auto-detected.
   def open(camera_id = 0, size = {width: -1, height: -1})
+    @size = size
     @capture_handler = Highgui::cvCreateCameraCapture(camera_id)
   end
 
@@ -51,6 +52,6 @@ class Webcam
     @capture_handler = nil
   end
 
-  attr_reader :capture_handler
+  attr_reader :capture_handler, :size
 end
 

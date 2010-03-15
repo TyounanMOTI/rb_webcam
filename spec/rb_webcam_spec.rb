@@ -26,6 +26,10 @@ describe Webcam do
       @c_webcam = Webcam.new(0, {width: 800, height: 600})
     end
 
+    it "should have specified size" do
+      @c_webcam.size.should == {width: 800, height: 600}
+    end
+
     it_should_behave_like "Webcam which lives a full life"
   end
 
