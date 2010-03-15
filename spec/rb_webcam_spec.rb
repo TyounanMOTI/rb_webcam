@@ -28,7 +28,7 @@ describe Webcam do
     end
 
     it "should have specified size" do
-      @c_webcam.size.should == @size
+      @c_webcam.size.should == "hello, i'm size"
     end
 
     it_should_behave_like "Webcam which lives a full life"

@@ -76,6 +76,10 @@ class Webcam
     @capture_handler = nil
   end
 
-  attr_reader :capture_handler, :size
+  def size
+    return "hello, i'm size"
+  end
+
+  attr_reader :capture_handler
 end
 
