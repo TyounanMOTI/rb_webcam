@@ -14,8 +14,8 @@ module Highgui
   enum :property, [ :position_msec, 0,
                     :position_frames,
                     :position_avi_ratio,
-                    :frame_width,
-                    :frame_height,
+                    :width,
+                    :height,
                     :fps,
                     :fourcc,
                     :frame_count,
@@ -77,7 +77,8 @@ class Webcam
   end
 
   def size
-    return "hello, i'm size"
+    {width: Highgui.cvGetCaptureProperty(@capture_handler, :width),
+    height: Highgui.cvGetCaptureProperty(@capture_handler, :height)}
   end
 
   attr_reader :capture_handler
