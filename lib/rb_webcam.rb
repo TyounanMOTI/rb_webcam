@@ -76,6 +76,9 @@ class Webcam
     @capture_handler = nil
   end
 
+  # Set video size.
+  # [usage] @webcam.size = {width: 160, height: 120}
+  # Available video size is depends on your camera.
   def size=(size)
     Highgui.cvSetCaptureProperty(@capture_handler, :width, size[:width])
     Highgui.cvSetCaptureProperty(@capture_handler, :height, size[:height])
