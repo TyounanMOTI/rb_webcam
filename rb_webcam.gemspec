@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "lib/rb_webcam.rb",
+     "rb_webcam.gemspec",
      "spec/rb_webcam_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
