@@ -14,9 +14,14 @@ describe Webcam do
     it_should_behave_like "Webcam which closed"
   end
 
-  context "when given camera_id is 0" do
+  context "when given camera_id: 0, size: 160x120" do
     before(:all) do
-     @c_webcam = Webcam.new(0)
+      @size = { width: 160.0, height: 120.0 }
+      @c_webcam = Webcam.new(0, @size)
+    end
+
+    it "should have specified size" do
+      @c_webcam.size.should == @size
     end
 
     it_should_behave_like "Webcam which lives a full life"

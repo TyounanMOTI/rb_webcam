@@ -48,7 +48,7 @@ class Webcam
   # If specified '0', camera will be auto-detected.
   def open(camera_id = 0, size = {width: -1, height: -1})
     @capture_handler = Highgui::cvCreateCameraCapture(camera_id)
-    @size = size
+    self.size = size
 
     return @capture_handler
   end
@@ -74,6 +74,11 @@ class Webcam
   def close
     Highgui::cvReleaseCapture(FFI::MemoryPointer.new(:pointer).write_pointer(@capture_handler))
     @capture_handler = nil
+  end
+
+  def size=(size)
+    Highgui.cvSetCaptureProperty(@capture_handler, :width, size[:width])
+    Highgui.cvSetCaptureProperty(@capture_handler, :height, size[:height])
   end
 
   def size
