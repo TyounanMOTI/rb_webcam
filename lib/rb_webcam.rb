@@ -31,11 +31,11 @@ module Highgui
                     :white_balance,
                     :rectification ]
 
-  attach_function :cvCreateCameraCapture, [:int], :pointer
-  attach_function :cvReleaseCapture, [:pointer], :void
-  attach_function :cvQueryFrame, [:pointer], :pointer
-  attach_function :cvGetCaptureProperty, [:pointer, :property], :double
-  attach_function :cvSetCaptureProperty, [:pointer, :property, :double], :int
+  attach_function :create_camera_capture, :cvCreateCameraCapture, [:int], :pointer
+  attach_function :release_capture, :cvReleaseCapture, [:pointer], :void
+  attach_function :query, :cvQueryFrame, [:pointer], :pointer
+  attach_function :get_property, :cvGetCaptureProperty, [:pointer, :property], :double
+  attach_function :set_property, :cvSetCaptureProperty, [:pointer, :property, :double], :int
 end
 
 class Webcam
@@ -44,7 +44,7 @@ class Webcam
   # size: Hash with ':width' and ':height'
   #            ex. {width: 800.0, height: 600.0}
   def initialize(camera_id=0, size = {width: -1, height: -1})
-    @capture_handler = Highgui::cvCreateCameraCapture(camera_id)
+    @capture_handler = Highgui.create_camera_capture(camera_id)
     self.size = size
   end
 
@@ -62,12 +62,12 @@ class Webcam
   # This needs camera still opened.
   def grab
     raise "Camera has'nt be initialized" if @capture_handler.nil?
-    Highgui.cvQueryFrame(@capture_handler)
+    Highgui.query(@capture_handler)
   end
 
   # Close camera. You need close opened camera for cleaner behavior.
   def close
-    Highgui::cvReleaseCapture(FFI::MemoryPointer.new(:pointer).write_pointer(@capture_handler))
+    Highgui.release_capture(FFI::MemoryPointer.new(:pointer).write_pointer(@capture_handler))
     @capture_handler = nil
   end
 
@@ -75,13 +75,13 @@ class Webcam
   # [usage] @webcam.size = {width: 160, height: 120}
   # Available video size is depends on your camera.
   def size=(size)
-    Highgui.cvSetCaptureProperty(@capture_handler, :width, size[:width])
-    Highgui.cvSetCaptureProperty(@capture_handler, :height, size[:height])
+    Highgui.set_property(@capture_handler, :width, size[:width])
+    Highgui.set_property(@capture_handler, :height, size[:height])
   end
 
   def size
-    {width: Highgui.cvGetCaptureProperty(@capture_handler, :width),
-    height: Highgui.cvGetCaptureProperty(@capture_handler, :height)}
+    {width: Highgui.get_property(@capture_handler, :width),
+    height: Highgui.get_property(@capture_handler, :height)}
   end
 
   attr_reader :capture_handler
