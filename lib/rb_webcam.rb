@@ -39,18 +39,13 @@ module Highgui
 end
 
 class Webcam
-  # Call 'open(camera_id)'.
+  # Open camera with camera_id, and size.
+  # camera_id: '0' to autodetect.
+  # size: Hash with ':width' and ':height'
+  #            ex. {width: 800.0, height: 600.0}
   def initialize(camera_id=0, size = {width: -1, height: -1})
-    open(camera_id, size)
-  end
-
-  # Open camera with 'camera_id'. (default = 0)
-  # If specified '0', camera will be auto-detected.
-  def open(camera_id = 0, size = {width: -1, height: -1})
     @capture_handler = Highgui::cvCreateCameraCapture(camera_id)
     self.size = size
-
-    return @capture_handler
   end
 
   # Open camera with 'method with block' sentence.
