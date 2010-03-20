@@ -9,7 +9,7 @@ describe Webcam do
     it { @c_webcam.should_not be_nil }
     it { @c_webcam.capture_handler.should be_instance_of(FFI::Pointer) }
     it { @c_webcam.grab.should be_instance_of(FFI::Pointer) }
-    it { @c_webcam.size[:width].should > 0.0 }
+    it { @c_webcam.resolution_mode[:width].should > 0.0 }
     it { @c_webcam.close.should be_nil }
     it_should_behave_like "Webcam which closed"
   end

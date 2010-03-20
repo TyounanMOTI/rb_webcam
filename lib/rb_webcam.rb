@@ -45,7 +45,7 @@ class Webcam
   #            ex. {width: 800.0, height: 600.0}
   def initialize(camera_id=0, size = {width: -1, height: -1})
     @capture_handler = Highgui.create_camera_capture(camera_id)
-    self.size = size
+    @size = size
   end
 
   # Open camera with 'method with block' sentence.
@@ -71,19 +71,19 @@ class Webcam
     @capture_handler = nil
   end
 
-  # Set video size.
-  # [usage] @webcam.size = {width: 160, height: 120}
-  # Available video size is depends on your camera.
-  def size=(size)
-    Highgui.set_property(@capture_handler, :width, size[:width])
-    Highgui.set_property(@capture_handler, :height, size[:height])
+  # Set resolution of camera output.
+  # [usage] @webcam.resolution_mode = {width: 160, height: 120}
+  # Available resolution_mode is depends on your camera.
+  def resolution_mode=(resolution)
+    Highgui.set_property(@capture_handler, :width, resolution[:width])
+    Highgui.set_property(@capture_handler, :height, resolution[:height])
   end
 
-  def size
+  def resolution_mode
     {width: Highgui.get_property(@capture_handler, :width),
     height: Highgui.get_property(@capture_handler, :height)}
   end
 
-  attr_reader :capture_handler
+  attr_reader :capture_handler, :size
 end
 
