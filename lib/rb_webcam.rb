@@ -41,9 +41,7 @@ end
 class Webcam
   # Open camera with camera_id, and size.
   # camera_id: '0' to autodetect.
-  # size: Hash with ':width' and ':height'
-  #            ex. {width: 800.0, height: 600.0}
-  def initialize(camera_id=0, size = {width: -1, height: -1})
+  def initialize(camera_id=0)
     @capture_handler = Highgui.create_camera_capture(camera_id)
     @size = size
   end
@@ -52,8 +50,8 @@ class Webcam
   # This will open then close at start and end of block.
   # ex.
   # Webcam.open { |camera| @image = camera.grab }
-  def self.open(camera_id=0, size = {width: -1, height: -1})
-    webcam = Webcam.new(camera_id, size)
+  def self.open(camera_id=0)
+    webcam = Webcam.new(camera_id)
     yield webcam
     webcam.close
   end
