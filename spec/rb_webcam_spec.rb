@@ -8,7 +8,21 @@ describe Webcam do
   share_examples_for "Webcam which lives a full life" do
     it { @c_webcam.should_not be_nil }
     it { @c_webcam.capture_handler.should be_instance_of(FFI::Pointer) }
-    it { @c_webcam.grab.should be_instance_of(FFI::Pointer) }
+    
+    describe "grabbed image" do
+      before do
+        @image = @c_webcam.grab
+      end
+      
+      it { @image.should be_instance_of Webcam::Image }
+
+      it "should have @iplimage_struct instance of Highgui::IplImage" do
+        @image.iplimage_struct.should be_instance_of Highgui::IplImage
+      end
+
+      it { @image.size.should == @c_webcam.resolution_mode }
+    end
+    
     it { @c_webcam.resolution_mode[:width].should > 0.0 }
     it { @c_webcam.close.should be_nil }
     it_should_behave_like "Webcam which closed"

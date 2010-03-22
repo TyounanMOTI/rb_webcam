@@ -8,7 +8,30 @@ module Highgui
   class CvCapture < NiceFFI::OpaqueStruct
   end
 
-  class IplImage < NiceFFI::OpaqueStruct
+  # http://opencv.willowgarage.com/documentation/basic_structures.html#iplimage
+  class IplImage < NiceFFI::Struct
+    layout :n_size,         :int,
+           :id,             :int,
+           :n_channels,     :int,
+           :alpha_channel,  :int,
+           :depth,          :int,
+           :color_mode,     [:char, 4],  # pointer to char[4]
+           :channel_seq,    [:char, 4],  # pointer to char[4]
+           :data_order,     :int,
+           :origin,         :int,
+           :align,          :int,
+           :width,          :int,
+           :height,         :int,
+           :roi,            :pointer,    # pointer to struct _IplROI
+           :mask_roi,       :pointer,    # pointer to struct _IplImage
+           :image_id,       :pointer,    # pointer to void
+           :tile_info,      :pointer,    # pointer to struct _IplTileInfo
+           :image_size,     :int,
+           :image_data,     :pointer,    # pointer to char array
+           :width_step,     :int,
+           :border_mode,    [:int, 4],   # pointer to int[4]
+           :border_const,   [:int, 4],   # pointer to int[4]
+           :image_data_origin, :pointer  # pointer to char array
   end
 
   enum :property, [ :position_msec, 0,
@@ -33,7 +56,7 @@ module Highgui
 
   attach_function :create_camera_capture, :cvCreateCameraCapture, [:int], :pointer
   attach_function :release_capture, :cvReleaseCapture, [:pointer], :void
-  attach_function :query, :cvQueryFrame, [:pointer], :pointer
+  attach_function :query, :cvQueryFrame, [:pointer], IplImage.typed_pointer
   attach_function :get_property, :cvGetCaptureProperty, [:pointer, :property], :double
   attach_function :set_property, :cvSetCaptureProperty, [:pointer, :property, :double], :int
 end
@@ -56,11 +79,12 @@ class Webcam
     webcam.close
   end
 
-  # Grab a frame from camera and returns a pointer to IplImage.
+  # Grab a frame from camera and returns IplImage struct.
   # This needs camera still opened.
   def grab
     raise "Camera has'nt be initialized" if @capture_handler.nil?
-    Highgui.query(@capture_handler)
+    image = Highgui.query(@capture_handler)
+    return Image.new(image)
   end
 
   # Close camera. You need close opened camera for cleaner behavior.
@@ -83,5 +107,22 @@ class Webcam
   end
 
   attr_reader :capture_handler, :size
+  
+  # Modifier for image from webcam.
+  # It can resize, encode, decode, etc... for image.
+  # Each instance have IplImage struct data.
+  # TODO: Having pointer to IplImage struct will be good for performance?
+  #       (Does whole structure copying occur at Image.new(iplimage) ?)
+  class Image
+    def initialize(iplimage_struct)
+      @iplimage_struct = iplimage_struct
+    end
+
+    def size
+      {width: @iplimage_struct.width, height: @iplimage_struct.height}
+    end
+    
+    attr_reader :iplimage_struct
+  end
 end
 
