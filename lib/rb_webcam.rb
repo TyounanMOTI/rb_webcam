@@ -66,7 +66,6 @@ class Webcam
   # camera_id: '0' to autodetect.
   def initialize(camera_id=0)
     @capture_handler = Highgui.create_camera_capture(camera_id)
-    @size = size
   end
 
   # Open camera with 'method with block' sentence.
@@ -106,7 +105,7 @@ class Webcam
     height: Highgui.get_property(@capture_handler, :height)}
   end
 
-  attr_reader :capture_handler, :size
+  attr_reader :capture_handler
   
   # Modifier for image from webcam.
   # It can resize, encode, decode, etc... for image.
