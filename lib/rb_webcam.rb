@@ -107,8 +107,8 @@ class Webcam
 
   attr_reader :capture_handler
   
-  # Modifier for image from webcam.
-  # It can resize, encode, decode, etc... for image.
+  # Property Container of image from webcam.
+  # Get size, color_depth, mode, etc.. of image.
   # Each instance have IplImage struct data.
   # TODO: Having pointer to IplImage struct will be good for performance?
   #       (Does whole structure copying occur at Image.new(iplimage) ?)
