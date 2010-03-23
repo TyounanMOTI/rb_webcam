@@ -121,6 +121,11 @@ class Webcam
     def size
       {width: @iplimage_struct.width, height: @iplimage_struct.height}
     end
+
+    # get color depth of image.
+    def color_depth
+      @iplimage_struct.depth
+    end
     
     attr_reader :iplimage_struct
   end
