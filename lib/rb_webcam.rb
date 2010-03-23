@@ -117,6 +117,7 @@ class Webcam
       @iplimage_struct = iplimage_struct
     end
 
+    # get size of image. Hash with :width, :height elements.
     def size
       {width: @iplimage_struct.width, height: @iplimage_struct.height}
     end
