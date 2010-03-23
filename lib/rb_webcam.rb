@@ -8,13 +8,22 @@ module Highgui
   class CvCapture < NiceFFI::OpaqueStruct
   end
 
+  SIGNED_FLAG = 0x80000000
+  enum :color_depth, [ :unsinged_1bit,  1,
+                       :unsigned_8bit,  8,
+                       :unsigned_16bit, 16,
+                       :unsinged_32bit, 32,
+                       :signed_8bit,    SIGNED_FLAG | 8,
+                       :signed_16bit,   SIGNED_FLAG | 16,
+                       :signed_32bit,   SIGNED_FLAG | 32 ]
+  
   # http://opencv.willowgarage.com/documentation/basic_structures.html#iplimage
   class IplImage < NiceFFI::Struct
     layout :n_size,         :int,
            :id,             :int,
            :n_channels,     :int,
            :alpha_channel,  :int,
-           :depth,          :int,
+           :depth,          :color_depth,
            :color_mode,     [:char, 4],  # pointer to char[4]
            :channel_seq,    [:char, 4],  # pointer to char[4]
            :data_order,     :int,

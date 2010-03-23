@@ -21,7 +21,7 @@ describe Webcam do
       end
 
       it { @image.size.should == @c_webcam.resolution_mode }
-      it { @image.color_depth.should > 0 }
+      it { @image.color_depth.should be_instance_of Symbol }
     end
     
     it { @c_webcam.resolution_mode[:width].should > 0.0 }
