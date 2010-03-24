@@ -136,6 +136,11 @@ class Webcam
       @iplimage_struct.depth
     end
     
+    # FFI::Pointer to image data
+    def data
+      @iplimage_struct.image_data
+    end
+    
     attr_reader :iplimage_struct
   end
 end

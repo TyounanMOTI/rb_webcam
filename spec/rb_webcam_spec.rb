@@ -22,6 +22,10 @@ describe Webcam do
 
       it { @image.size.should == @c_webcam.resolution_mode }
       it { @image.color_depth.should be_instance_of Symbol }
+      
+      it "data should be instance of FFI::Pointer" do
+        @image.data.should be_instance_of FFI::Pointer
+      end
     end
     
     it { @c_webcam.resolution_mode[:width].should > 0.0 }
