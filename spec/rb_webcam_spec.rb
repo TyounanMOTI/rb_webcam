@@ -20,8 +20,13 @@ describe Webcam do
         @image.iplimage_struct.should be_instance_of Highgui::IplImage
       end
 
-      it { @image.size.should == @c_webcam.resolution_mode }
-      it { @image.color_depth.should be_instance_of Symbol }
+      it "color_depth should equal to camera resolution mode" do
+        @image.size.should == @c_webcam.resolution_mode
+      end
+      
+      it "color_depth should be Symbol" do
+        @image.color_depth.should be_instance_of Symbol
+      end
       
       it "data should be instance of FFI::Pointer" do
         @image.data.should be_instance_of FFI::Pointer
