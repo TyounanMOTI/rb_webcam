@@ -7,7 +7,10 @@ describe Webcam do
 
   share_examples_for "Webcam which lives a full life" do
     it { @c_webcam.should_not be_nil }
-    it { @c_webcam.capture_handler.should be_instance_of(FFI::Pointer) }
+    
+    it "capture handler should be instance of FFI::Pointer" do
+      @c_webcam.capture_handler.should be_instance_of(FFI::Pointer)
+    end
     
     describe "grabbed image" do
       before do
@@ -37,8 +40,14 @@ describe Webcam do
       end
     end
     
-    it { @c_webcam.resolution_mode[:width].should > 0.0 }
-    it { @c_webcam.close.should be_nil }
+    it "resolution mode of width should > 0" do
+      @c_webcam.resolution_mode[:width].should > 0.0
+    end
+    
+    it "close() should return nil" do
+      @c_webcam.close.should be_nil
+    end
+    
     it_should_behave_like "Webcam which closed"
   end
 
