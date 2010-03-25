@@ -141,6 +141,11 @@ class Webcam
       @iplimage_struct.image_data
     end
     
+    # data size of image
+    def data_size
+      @iplimage_struct.image_size
+    end
+    
     attr_reader :iplimage_struct
   end
 end

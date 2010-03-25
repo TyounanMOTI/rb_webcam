@@ -31,6 +31,10 @@ describe Webcam do
       it "data should be instance of FFI::Pointer" do
         @image.data.should be_instance_of FFI::Pointer
       end
+      
+      it "data size should > 0" do
+        @image.data_size.should > 0
+      end
     end
     
     it { @c_webcam.resolution_mode[:width].should > 0.0 }
