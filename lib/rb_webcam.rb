@@ -144,6 +144,11 @@ class Webcam
       @iplimage_struct.depth
     end
     
+    # String of image data
+    def data
+      self.data_pointer.read_string(self.data_size)
+    end
+    
     # FFI::Pointer to image data
     def data_pointer
       @iplimage_struct.image_data

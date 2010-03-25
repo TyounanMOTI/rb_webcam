@@ -30,6 +30,14 @@ describe Webcam do
       it "color_depth should be Symbol" do
         @image.color_depth.should be_instance_of Symbol
       end
+
+      it "data should be instance of String" do
+        @image.data.should be_instance_of String
+      end
+      
+      it "length of data should equal with data_size" do
+        @image.data.length.should == @image.data_size
+      end
             
       it "data size should > 0" do
         @image.data_size.should > 0
