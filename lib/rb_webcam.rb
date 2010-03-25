@@ -1,5 +1,6 @@
 require 'nice-ffi'
 
+# wrapper module of OpenCV::Highgui
 module Highgui
   extend NiceFFI::Library
 
@@ -71,13 +72,9 @@ module Highgui
   attach_function :set_property, :cvSetCaptureProperty, [:pointer, :property, :double], :int
 end
 
+# Class to controll your webcam.
+# Initialize camera, grab image, then close.
 class Webcam
-  # Open camera with camera_id, and size.
-  # camera_id: '0' to autodetect.
-  def initialize(camera_id=0)
-    @capture_handler = Highgui.create_camera_capture(camera_id)
-  end
-
   # Open camera with 'method with block' sentence.
   # This will open then close at start and end of block.
   # ex.
@@ -86,6 +83,12 @@ class Webcam
     webcam = Webcam.new(camera_id)
     yield webcam
     webcam.close
+  end
+  
+  # Open camera with camera_id, and size.
+  # camera_id: '0' to autodetect.
+  def initialize(camera_id=0)
+    @capture_handler = Highgui.create_camera_capture(camera_id)
   end
 
   # Grab a frame from camera and returns IplImage struct.
@@ -110,11 +113,15 @@ class Webcam
     Highgui.set_property(@capture_handler, :height, resolution[:height])
   end
 
+  # Get resolution mode of camera.
+  # return format is written in resolution_mode=(resolution)
   def resolution_mode
     {width: Highgui.get_property(@capture_handler, :width),
     height: Highgui.get_property(@capture_handler, :height)}
   end
 
+  # Getter for debug use.
+  # Internally used to call OpenCV C functions for specified camera.
   attr_reader :capture_handler
   
   # Property Container of image from webcam.
@@ -147,6 +154,7 @@ class Webcam
       @iplimage_struct.image_size
     end
     
+    # IplImage structure stored grabbed image from camera.
     attr_reader :iplimage_struct
   end
 end
