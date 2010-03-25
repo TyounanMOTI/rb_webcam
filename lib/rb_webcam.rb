@@ -17,6 +17,7 @@ module Highgui
                        :signed_16bit,   SIGNED_FLAG | 16,
                        :signed_32bit,   SIGNED_FLAG | 32 ]
   
+  # Grabbed webcam image will be stored in this structure.
   # http://opencv.willowgarage.com/documentation/basic_structures.html#iplimage
   class IplImage < NiceFFI::Struct
     layout :n_size,         :int,
