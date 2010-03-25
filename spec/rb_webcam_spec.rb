@@ -30,13 +30,13 @@ describe Webcam do
       it "color_depth should be Symbol" do
         @image.color_depth.should be_instance_of Symbol
       end
-      
-      it "data should be instance of FFI::Pointer" do
-        @image.data.should be_instance_of FFI::Pointer
-      end
-      
+            
       it "data size should > 0" do
         @image.data_size.should > 0
+      end
+      
+      it "data_pointer should be instance of FFI::Pointer" do
+        @image.data_pointer.should be_instance_of FFI::Pointer
       end
     end
     

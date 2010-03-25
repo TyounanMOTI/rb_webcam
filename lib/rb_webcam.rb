@@ -145,7 +145,7 @@ class Webcam
     end
     
     # FFI::Pointer to image data
-    def data
+    def data_pointer
       @iplimage_struct.image_data
     end
     
