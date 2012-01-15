@@ -4,7 +4,7 @@ require 'nice-ffi'
 module Highgui
   extend NiceFFI::Library
 
-  load_library("highgui")
+  load_library("opencv_highgui")
 
   class CvCapture < NiceFFI::OpaqueStruct
   end
