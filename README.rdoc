@@ -23,8 +23,14 @@ capture = Webcam.new
 image = capture.grab
 capture.close
 
+to save image
+
+capture = Webcam.new
+image = capture.grab
+image.save "new_image.jpg"
+capture.close
+
 == TODO
-* output 'image' is *IplImage yet. we'll implement feature for JPG, BMP output.
 * specity size at initialize, or anytime.
 
 == LICENSE

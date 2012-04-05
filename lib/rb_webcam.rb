@@ -70,6 +70,7 @@ module Highgui
   attach_function :query, :cvQueryFrame, [:pointer], IplImage.typed_pointer
   attach_function :get_property, :cvGetCaptureProperty, [:pointer, :property], :double
   attach_function :set_property, :cvSetCaptureProperty, [:pointer, :property, :double], :int
+  attach_function :save_image, :cvSaveImage, [:string, IplImage], :int
 end
 
 # Class to controll your webcam.
@@ -157,6 +158,11 @@ class Webcam
     # data size of image
     def data_size
       @iplimage_struct.image_size
+    end
+
+    # save the image to "name" incl. extension
+    def save(name)
+      Highgui.save_image name, @iplimage_struct
     end
     
     # IplImage structure stored grabbed image from camera.
