@@ -107,7 +107,7 @@ class Webcam
   end
 
   # Set resolution of camera output.
-  # [usage] @webcam.resolution_mode = {width: 160, height: 120}
+  # [usage] @webcam.resolution_mode = {:width => 160, :height => 120}
   # Available resolution_mode is depends on your camera.
   def resolution_mode=(resolution)
     Highgui.set_property(@capture_handler, :width, resolution[:width])
@@ -117,8 +117,10 @@ class Webcam
   # Get resolution mode of camera.
   # return format is written in resolution_mode=(resolution)
   def resolution_mode
-    {width: Highgui.get_property(@capture_handler, :width),
-    height: Highgui.get_property(@capture_handler, :height)}
+    {
+      :width => Highgui.get_property(@capture_handler, :width),
+      :height => Highgui.get_property(@capture_handler, :height)
+    }
   end
 
   # Getter for debug use.
@@ -137,7 +139,10 @@ class Webcam
 
     # get size of image. Hash with :width, :height elements.
     def size
-      {width: @iplimage_struct.width, height: @iplimage_struct.height}
+      {
+        :width => @iplimage_struct.width,
+        :height => @iplimage_struct.height
+      }
     end
 
     # get color depth of image.
