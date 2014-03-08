@@ -1,19 +1,17 @@
-= rb_webcam
-Crossplatform video capture library for Ruby
-(Powered by OpenCV)
+# rb_webcam
+Crossplatform video capture library for Ruby. Powered by OpenCV.
 
-== Platform
-Windows, Mac OS X, Linux, etc...
-(OpenCV capable systems)
+## Platform
+Windows, Mac OS X, Linux, etc...(OpenCV capable systems)
 
-== Dependency
-nice-ffi >= 0.3
-OpenCV Library >= 2.0.0
+## Dependency
+* nice-ffi >= 0.3
+* OpenCV Library >= 2.0.0
 
-== Install
+## Install
 gem install rb_webcam
 
-== Usage
+## Usage
 ```ruby
 camera_id = 0
 Webcam.open(camera_id) {|capture| image = capture.grab}
@@ -36,9 +34,9 @@ image.save "new_image.jpg"
 capture.close
 ```
 
-== TODO
+## TODO
 * specity size at initialize, or anytime.
 
-== LICENSE
+## LICENSE
 The MIT License
 Copyright (c) 2010 Hirotoshi YOSHITAKA. See LICENSE for details.
